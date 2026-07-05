@@ -11,6 +11,8 @@ import Profile from './pages/Profile'
 import CheckoutResult from './pages/CheckoutResult'
 import About from './pages/About'
 import Terms from './pages/Terms'
+import Privacy from './pages/Privacy'
+import Cookies from './pages/Cookies'
 
 function Protected({ children }) {
   const { user, profile, loading } = useAuth()
@@ -44,6 +46,8 @@ export default function App() {
           <Route path="/checkout/:result" element={<Protected><CheckoutResult /></Protected>} />
           <Route path="/about" element={<About />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/cookies" element={<Cookies />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
@@ -52,6 +56,8 @@ export default function App() {
         <nav className="mt-3 flex justify-center gap-5">
           <Link to="/about" className="hover:text-slate-700 hover:underline">About us</Link>
           <Link to="/terms" className="hover:text-slate-700 hover:underline">Terms of use</Link>
+          <Link to="/privacy" className="hover:text-slate-700 hover:underline">Privacy</Link>
+          <Link to="/cookies" className="hover:text-slate-700 hover:underline">Cookies</Link>
           <a href="mailto:support@web-wrx.net" className="hover:text-slate-700 hover:underline">Contact</a>
         </nav>
       </footer>
