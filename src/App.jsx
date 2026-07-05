@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, Link } from 'react-router-dom'
 import { useAuth } from './context/AuthContext'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
@@ -9,6 +9,8 @@ import ListingDetail from './pages/ListingDetail'
 import MyListings from './pages/MyListings'
 import Profile from './pages/Profile'
 import CheckoutResult from './pages/CheckoutResult'
+import About from './pages/About'
+import Terms from './pages/Terms'
 
 function Protected({ children }) {
   const { user, profile, loading } = useAuth()
@@ -40,11 +42,18 @@ export default function App() {
           <Route path="/my-listings" element={<Protected><MyListings /></Protected>} />
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/checkout/:result" element={<Protected><CheckoutResult /></Protected>} />
+          <Route path="/about" element={<About />} />
+          <Route path="/terms" element={<Terms />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
       <footer className="border-t border-slate-200 bg-white py-8 text-center text-sm text-slate-500">
-        Web Works — cheap &amp; easy classifieds for web development work. No commissions, ever.
+        <p>Web Works — cheap &amp; easy classifieds for web development work. No commissions, ever.</p>
+        <nav className="mt-3 flex justify-center gap-5">
+          <Link to="/about" className="hover:text-slate-700 hover:underline">About us</Link>
+          <Link to="/terms" className="hover:text-slate-700 hover:underline">Terms of use</Link>
+          <a href="mailto:support@web-wrx.net" className="hover:text-slate-700 hover:underline">Contact</a>
+        </nav>
       </footer>
     </div>
   )
