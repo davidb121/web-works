@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import ListingCard from '../components/ListingCard'
 import { PageSpinner } from '../App'
-import { Search } from 'lucide-react'
+import { Search, BadgePercent } from 'lucide-react'
+import { HeroIllustration, PostAdSpot, GetFoundSpot, ConnectSpot } from '../components/illustrations'
 
 export default function Home() {
   const [kind, setKind] = useState('project') // 'project' = find work is posted by clients; browse toggle
@@ -43,25 +44,55 @@ export default function Home() {
   return (
     <div>
       {/* Hero */}
-      <section className="py-12 text-center sm:py-16">
-        <h1 className="mx-auto max-w-2xl text-4xl font-extrabold tracking-tight sm:text-5xl">
-          Web dev work, <span className="text-brand-600">without the middleman.</span>
-        </h1>
-        <p className="mx-auto mt-4 max-w-xl text-lg text-slate-600">
-          Simple classifieds for websites and web apps. $5/month per ad, free accounts,
-          direct contact. No commissions — you keep 100% of what you earn.
-        </p>
-        <div className="mt-6 flex justify-center gap-3">
-          <Link to="/post" className="rounded-full bg-brand-600 px-6 py-3 font-semibold text-white shadow hover:bg-brand-700">
-            Post an ad
-          </Link>
-          <a href="#browse" className="rounded-full border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-700 hover:bg-slate-100">
-            Browse listings
-          </a>
+      <section className="grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-2">
+        <div className="text-center lg:text-left">
+          <h1 className="mx-auto max-w-2xl text-4xl font-extrabold tracking-tight sm:text-5xl lg:mx-0">
+            Web dev work, <span className="text-brand-600">without the middleman.</span>
+          </h1>
+          <p className="mx-auto mt-4 max-w-xl text-lg text-slate-600 lg:mx-0">
+            Simple classifieds for websites and web apps. $5/month per ad, free accounts,
+            direct contact. No commissions — you keep 100% of what you earn.
+          </p>
+          <div className="mt-6 flex justify-center gap-3 lg:justify-start">
+            <Link to="/post" className="rounded-full bg-brand-600 px-6 py-3 font-semibold text-white shadow hover:bg-brand-700">
+              Post an ad
+            </Link>
+            <a href="#browse" className="rounded-full border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-700 hover:bg-slate-100">
+              Browse listings
+            </a>
+          </div>
+          <p className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-emerald-700">
+            <BadgePercent size={16} /> Launch special: the first 100 project posts are just $2.
+          </p>
         </div>
-        <p className="mt-4 text-sm font-medium text-emerald-700">
-          🎉 Launch special: the first 100 project posts are just $2.
-        </p>
+        <HeroIllustration className="mx-auto hidden w-full max-w-xl lg:block" />
+      </section>
+
+      {/* How it works */}
+      <section className="mb-12 grid gap-4 sm:grid-cols-3">
+        {[
+          {
+            Spot: PostAdSpot,
+            title: 'Post your ad',
+            body: 'Describe your project or your skills in a 3-step wizard. $5/month, cancel anytime.',
+          },
+          {
+            Spot: GetFoundSpot,
+            title: 'Get found',
+            body: 'Clients and freelancers browse and search — no algorithms deciding who sees you.',
+          },
+          {
+            Spot: ConnectSpot,
+            title: 'Connect directly',
+            body: 'Reveal contact info and take it from there. Your terms, your payment, your client.',
+          },
+        ].map(({ Spot, title, body }) => (
+          <div key={title} className="rounded-2xl border border-slate-200 bg-white p-6 text-center">
+            <Spot className="mx-auto h-20 w-20" />
+            <h3 className="mt-3 font-bold">{title}</h3>
+            <p className="mt-1 text-sm text-slate-600">{body}</p>
+          </div>
+        ))}
       </section>
 
       {/* Browse */}
