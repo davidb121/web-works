@@ -1,0 +1,72 @@
+import { useEffect, useState } from 'react'
+import { useParams, Link } from 'react-router-dom'
+import { supabase } from '../lib/supabase'
+import { useAuth } from '../context/AuthContext'
+import Avatar from '../components/Avatar'
+import ListingCard from '../components/ListingCard'
+import { PageSpinner } from '../App'
+import { ExternalLink, Pencil } from 'lucide-react'
+
+export default function Profile() {
+  const { id } = useParams()
+  const { user } = useAuth()
+  const [profile, setProfile] = useState(undefined)
+  const [listings, setListings] = useState([])
+
+  useEffect(() => {
+    async function load() {
+      const { data: p } = await supabase.from('profiles').select('*').eq('user_id', id).maybeSingle()
+      setProfile(p ?? null)
+      const { data: ls } = await supabase
+        .from('listings').select('*')
+        .eq('owner_id', id).eq('status', 'active')
+        .order('created_at', { ascending: false })
+      setListings(ls ?? [])
+    }
+    load()
+  }, [id])
+
+  if (profile === undefined) return <PageSpinner />
+  if (profile === null) return <p className="py-24 text-center text-slate-500">Profile not found.</p>
+
+  const isMe = user?.id === id
+
+  return (
+    <div className="mx-auto mt-10 max-w-3xl">
+      <div className="flex items-start gap-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+        <Avatar profile={profile} size={72} />
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center justify-between gap-2">
+            <h1 className="truncate text-2xl font-bold">{profile.display_name}</h1>
+            {isMe && (
+              <Link to="/onboarding" className="flex items-center gap-1 text-sm font-medium text-brand-600 hover:underline">
+                <Pencil size={14} /> Edit
+              </Link>
+            )}
+          </div>
+          <p className="text-sm capitalize text-slate-500">
+            {profile.type === 'both' ? 'Freelancer & hiring' : profile.type}
+          </p>
+          {profile.bio && <p className="mt-3 whitespace-pre-wrap text-slate-700">{profile.bio}</p>}
+          {profile.website_url && (
+            <a
+              href={profile.website_url} target="_blank" rel="noopener noreferrer"
+              className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-brand-600 hover:underline"
+            >
+              {profile.website_url.replace(/^https?:\/\//, '')} <ExternalLink size={13} />
+            </a>
+          )}
+        </div>
+      </div>
+
+      <h2 className="mb-4 mt-10 text-lg font-bold">Active ads</h2>
+      {listings.length === 0 ? (
+        <p className="text-sm text-slate-500">No active ads.</p>
+      ) : (
+        <div className="grid gap-4 sm:grid-cols-2">
+          {listings.map((l) => <ListingCard key={l.id} listing={l} />)}
+        </div>
+      )}
+    </div>
+  )
+}
