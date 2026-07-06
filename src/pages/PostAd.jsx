@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { supabase, SKILL_OPTIONS } from '../lib/supabase'
 import { Briefcase, Wrench, Check } from 'lucide-react'
@@ -6,7 +6,7 @@ import { Briefcase, Wrench, Check } from 'lucide-react'
 const STEPS = ['Describe', 'Preview', 'Pay']
 
 export default function PostAd() {
-  const { user, session } = useAuth()
+  const { user, session, profile } = useAuth()
   const [step, setStep] = useState(0)
   const [promoLeft, setPromoLeft] = useState(null)
   const [busy, setBusy] = useState(false)
@@ -28,6 +28,15 @@ export default function PostAd() {
   useEffect(() => {
     supabase.rpc('promo_remaining').then(({ data }) => setPromoLeft(typeof data === 'number' ? data : 0))
   }, [])
+
+  // Talent ads start with the skills from your profile (you can still edit them).
+  const skillsPrefilled = useRef(false)
+  useEffect(() => {
+    if (form.kind === 'talent' && !skillsPrefilled.current && profile?.skills?.length && form.skills.length === 0) {
+      skillsPrefilled.current = true
+      set('skills', profile.skills.slice(0, 8))
+    }
+  }, [form.kind, profile]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const promoApplies = isProject && promoLeft > 0
   const firstMonthPrice = promoApplies ? '$2' : '$5'
@@ -165,9 +174,11 @@ export default function PostAd() {
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium">Skills <span className="font-normal text-slate-400">(up to 8)</span></label>
+            <label className="mb-1 block text-sm font-medium">
+              Skills <span className="font-normal text-slate-400">(up to 8{!isProject && profile?.skills?.length > 0 ? ' — copied from your profile' : ''})</span>
+            </label>
             <div className="flex flex-wrap gap-1.5">
-              {SKILL_OPTIONS.map((s) => (
+              {[...SKILL_OPTIONS, ...form.skills.filter((s) => !SKILL_OPTIONS.includes(s))].map((s) => (
                 <button
                   key={s} type="button" onClick={() => toggleSkill(s)}
                   className={`rounded-full px-3 py-1 text-xs font-medium ring-1 transition ${form.skills.includes(s) ? 'bg-brand-600 text-white ring-brand-600' : 'bg-white text-slate-600 ring-slate-300 hover:ring-slate-400'}`}
