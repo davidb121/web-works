@@ -13,6 +13,8 @@ import About from './pages/About'
 import Terms from './pages/Terms'
 import Privacy from './pages/Privacy'
 import Cookies from './pages/Cookies'
+import Search from './pages/Search'
+import Connect from './pages/Connect'
 
 function Protected({ children }) {
   const { user, profile, loading } = useAuth()
@@ -48,6 +50,8 @@ export default function App() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/cookies" element={<Cookies />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/connect" element={<Connect />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
