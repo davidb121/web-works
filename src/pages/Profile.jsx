@@ -5,7 +5,15 @@ import { useAuth } from '../context/AuthContext'
 import Avatar from '../components/Avatar'
 import ListingCard from '../components/ListingCard'
 import { PageSpinner } from '../App'
-import { ExternalLink, Pencil } from 'lucide-react'
+import { ExternalLink, Pencil, Linkedin, FileText, Clock } from 'lucide-react'
+
+function localTime(tz) {
+  try {
+    return new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit', timeZone: tz }).format(new Date())
+  } catch {
+    return null
+  }
+}
 
 export default function Profile() {
   const { id } = useParams()
@@ -48,13 +56,43 @@ export default function Profile() {
             {profile.type === 'both' ? 'Freelancer & hiring' : profile.type}
           </p>
           {profile.bio && <p className="mt-3 whitespace-pre-wrap text-slate-700">{profile.bio}</p>}
-          {profile.website_url && (
-            <a
-              href={profile.website_url} target="_blank" rel="noopener noreferrer"
-              className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-brand-600 hover:underline"
-            >
-              {profile.website_url.replace(/^https?:\/\//, '')} <ExternalLink size={13} />
-            </a>
+          <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2">
+            {profile.website_url && (
+              <a
+                href={profile.website_url} target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-600 hover:underline"
+              >
+                {profile.website_url.replace(/^https?:\/\//, '')} <ExternalLink size={13} />
+              </a>
+            )}
+            {profile.linkedin_url && (
+              <a
+                href={profile.linkedin_url} target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-600 hover:underline"
+              >
+                <Linkedin size={14} /> LinkedIn
+              </a>
+            )}
+            {profile.resume_url && (
+              <a
+                href={profile.resume_url} target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-600 hover:underline"
+              >
+                <FileText size={14} /> Resume
+              </a>
+            )}
+            {profile.timezone && localTime(profile.timezone) && (
+              <span className="inline-flex items-center gap-1.5 text-sm text-slate-500" title={profile.timezone}>
+                <Clock size={14} /> {localTime(profile.timezone)} local time
+              </span>
+            )}
+          </div>
+          {profile.skills?.length > 0 && (
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {profile.skills.map((s) => (
+                <span key={s} className="rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700">{s}</span>
+              ))}
+            </div>
           )}
         </div>
       </div>
