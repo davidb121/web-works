@@ -65,7 +65,11 @@ Deno.serve(async (req) => {
         const listingId = sub.metadata?.listing_id
         if (listingId) {
           await admin.from('subscriptions')
-            .update({ status: sub.status, updated_at: new Date().toISOString() })
+            .update({
+              status: sub.status,
+              cancel_at_period_end: sub.cancel_at_period_end ?? false,
+              updated_at: new Date().toISOString(),
+            })
             .eq('listing_id', listingId)
           if (sub.status === 'canceled' || sub.status === 'unpaid' || sub.status === 'incomplete_expired') {
             // Let the listing run out at its paid-through date; expire immediately if past it.
@@ -92,9 +96,4 @@ async function activateListing(listingId: string, subscriptionId: string, custom
     .eq('id', listingId)
   await admin.from('subscriptions').upsert({
     listing_id: listingId,
-    stripe_subscription_id: subscriptionId,
-    stripe_customer_id: customerId,
-    status: sub.status,
-    updated_at: new Date().toISOString(),
-  })
-}
+    stripe_subscription_id: subscriptionI
