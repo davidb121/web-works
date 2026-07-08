@@ -1,6 +1,7 @@
 // Supabase Edge Function: create-checkout
 // Creates a Stripe Checkout session for a listing's $5/mo subscription,
-// applying the $2-first-month launch promo to project listings while slots last.
+// applying the $2-first-month launch promo to any listing kind while slots last
+// (200 slots per kind: project + talent).
 // Also opens the Stripe Billing Portal when called with { portal: true }.
 //
 // Secrets required (supabase secrets set):
@@ -78,12 +79,9 @@ Deno.serve(async (req) => {
     if (!listing || listing.owner_id !== user.id) return json({ error: 'Listing not found' }, 404)
     if (listing.status !== 'pending_payment') return json({ error: 'Listing is not awaiting payment' }, 400)
 
-    // Try to claim a promo slot for project listings.
-    let promoApplied = false
-    if (listing.kind === 'project') {
-      const { data: claimed } = await admin.rpc('claim_promo_slot')
-      promoApplied = claimed === true
-    }
+    // Try to claim a promo slot for this listing's kind (200 slots per kind).
+    const { data: claimed } = await admin.rpc('claim_promo_slot', { p_kind: listing.kind })
+    const promoApplied = claimed === true
 
     const session = await stripe.checkout.sessions.create({
       customer: customerId,

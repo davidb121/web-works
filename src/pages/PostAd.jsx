@@ -25,9 +25,13 @@ export default function PostAd() {
   const set = (k, v) => setForm((f) => ({ ...f, [k]: v }))
   const isProject = form.kind === 'project'
 
+  // Remaining promo slots are tracked per listing kind (200 each), so re-check
+  // whenever the selected kind changes.
   useEffect(() => {
-    supabase.rpc('promo_remaining').then(({ data }) => setPromoLeft(typeof data === 'number' ? data : 0))
-  }, [])
+    supabase
+      .rpc('promo_remaining', { p_kind: form.kind })
+      .then(({ data }) => setPromoLeft(typeof data === 'number' ? data : 0))
+  }, [form.kind])
 
   // Talent ads start with the skills from your profile (you can still edit them).
   const skillsPrefilled = useRef(false)
@@ -38,7 +42,7 @@ export default function PostAd() {
     }
   }, [form.kind, profile]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const promoApplies = isProject && promoLeft > 0
+  const promoApplies = promoLeft > 0
   const firstMonthPrice = promoApplies ? '$2' : '$5'
 
   function toggleSkill(s) {

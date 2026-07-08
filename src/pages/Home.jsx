@@ -49,7 +49,7 @@ export default function Home() {
             </a>
           </div>
           <p className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-emerald-700">
-            <BadgePercent size={16} /> Launch special: the first 100 project posts are just $2.
+            <BadgePercent size={16} /> Launch special: the first 200 project posts and first 200 developer posts are just $2.
           </p>
         </div>
         <HeroIllustration className="mx-auto hidden w-full max-w-xl lg:block" />
