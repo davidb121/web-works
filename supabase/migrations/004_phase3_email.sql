@@ -6,8 +6,11 @@
 create extension if not exists pg_net;
 
 -- Shared secret so only our cron can invoke the notify function.
--- (Same value must be set as the NOTIFY_SECRET edge function secret.)
-select vault.create_secret('1494dab0dea9513202228d7f7ae90d08a5c707cceb7417fe', 'notify_secret');
+-- DO NOT COMMIT A REAL VALUE. Generate one (e.g. `openssl rand -hex 24`),
+-- run this statement manually with it, and set the same value as the
+-- NOTIFY_SECRET edge function secret. To rotate later:
+--   select vault.update_secret((select id from vault.secrets where name='notify_secret'), '<new-value>');
+select vault.create_secret('REPLACE_ME_BEFORE_RUNNING', 'notify_secret');
 
 -- ---------- outbox ----------
 create table public.email_outbox (
