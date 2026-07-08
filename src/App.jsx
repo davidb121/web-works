@@ -15,6 +15,8 @@ import Privacy from './pages/Privacy'
 import Cookies from './pages/Cookies'
 import Search from './pages/Search'
 import Connect from './pages/Connect'
+import Reviews from './pages/Reviews'
+import Admin from './pages/Admin'
 
 function Protected({ children }) {
   const { user, profile, loading } = useAuth()
@@ -52,6 +54,8 @@ export default function App() {
           <Route path="/cookies" element={<Cookies />} />
           <Route path="/search" element={<Search />} />
           <Route path="/connect" element={<Connect />} />
+          <Route path="/reviews" element={<Protected><Reviews /></Protected>} />
+          <Route path="/admin" element={<Protected><Admin /></Protected>} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

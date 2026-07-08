@@ -6,6 +6,8 @@ import Avatar from '../components/Avatar'
 import ListingCard from '../components/ListingCard'
 import { PageSpinner } from '../App'
 import { ExternalLink, Pencil, Linkedin, FileText, Clock } from 'lucide-react'
+import { Stars, ReviewCard, ReportButton } from '../components/reviews'
+import LeaveReview from '../components/LeaveReview'
 
 function localTime(tz) {
   try {
@@ -20,6 +22,7 @@ export default function Profile() {
   const { user } = useAuth()
   const [profile, setProfile] = useState(undefined)
   const [listings, setListings] = useState([])
+  const [reviews, setReviews] = useState([])
 
   useEffect(() => {
     async function load() {
@@ -30,6 +33,12 @@ export default function Profile() {
         .eq('owner_id', id).eq('status', 'active')
         .order('created_at', { ascending: false })
       setListings(ls ?? [])
+      const { data: rs } = await supabase
+        .from('reviews')
+        .select('*, author:profiles!reviews_author_id_fkey(user_id, display_name, avatar_url, company_logo_url)')
+        .eq('subject_id', id).eq('status', 'live')
+        .order('created_at', { ascending: false })
+      setReviews(rs ?? [])
     }
     load()
   }, [id])
@@ -55,6 +64,13 @@ export default function Profile() {
           <p className="text-sm capitalize text-slate-500">
             {profile.type === 'both' ? 'Freelancer & hiring' : profile.type}
           </p>
+          {profile.review_count > 0 && (
+            <p className="mt-1 flex items-center gap-1.5 text-sm">
+              <Stars value={profile.avg_rating ?? 0} />
+              <span className="font-semibold">{Number(profile.avg_rating).toFixed(1)}</span>
+              <span className="text-slate-400">({profile.review_count} review{profile.review_count === 1 ? '' : 's'})</span>
+            </p>
+          )}
           {profile.bio && <p className="mt-3 whitespace-pre-wrap text-slate-700">{profile.bio}</p>}
           <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2">
             {profile.website_url && (
@@ -97,12 +113,33 @@ export default function Profile() {
         </div>
       </div>
 
+      {!isMe && (
+        <div className="mt-6">
+          <LeaveReview subjectId={id} subjectName={profile.display_name} />
+        </div>
+      )}
+
       <h2 className="mb-4 mt-10 text-lg font-bold">Active ads</h2>
       {listings.length === 0 ? (
         <p className="text-sm text-slate-500">No active ads.</p>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2">
           {listings.map((l) => <ListingCard key={l.id} listing={l} />)}
+        </div>
+      )}
+
+      <h2 className="mb-4 mt-10 text-lg font-bold">Reviews</h2>
+      {reviews.length === 0 ? (
+        <p className="text-sm text-slate-500">No reviews yet.</p>
+      ) : (
+        <div className="space-y-4">
+          {reviews.map((r) => <ReviewCard key={r.id} review={r} />)}
+        </div>
+      )}
+
+      {!isMe && (
+        <div className="mt-8">
+          <ReportButton targetType="profile" targetId={id} />
         </div>
       )}
     </div>

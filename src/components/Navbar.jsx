@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import { PlusCircle, LogOut, LayoutList, UserCircle } from 'lucide-react'
+import { PlusCircle, LogOut, LayoutList, UserCircle, Star, ShieldAlert } from 'lucide-react'
 import Avatar from './Avatar'
 
 export default function Navbar() {
@@ -27,6 +27,14 @@ export default function Navbar() {
               <Link to="/my-listings" title="My listings" className="hidden items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 sm:flex">
                 <LayoutList size={16} /> My listings
               </Link>
+              <Link to="/reviews" title="Reviews" className="hidden items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 sm:flex">
+                <Star size={16} /> Reviews
+              </Link>
+              {profile?.is_admin && (
+                <Link to="/admin" title="Moderation" className="rounded-full p-2 text-slate-500 hover:bg-slate-100">
+                  <ShieldAlert size={16} />
+                </Link>
+              )}
               <Link to={profile ? `/profile/${user.id}` : '/onboarding'} title="Profile">
                 <Avatar profile={profile} size={34} />
               </Link>

@@ -6,6 +6,7 @@ import { formatBudget } from '../components/ListingCard'
 import Avatar from '../components/Avatar'
 import { PageSpinner } from '../App'
 import { Mail, Clock, Repeat, ExternalLink } from 'lucide-react'
+import { ReportButton } from '../components/reviews'
 
 export default function ListingDetail() {
   const { id } = useParams()
@@ -117,6 +118,8 @@ export default function ListingDetail() {
             Portfolio / website <ExternalLink size={14} />
           </a>
         )}
+
+        {!isOwner && <div className="px-1"><ReportButton targetType="listing" targetId={id} /></div>}
       </aside>
     </div>
   )
