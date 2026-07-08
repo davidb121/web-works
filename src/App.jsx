@@ -1,4 +1,5 @@
-import { Routes, Route, Navigate, Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Routes, Route, Navigate, Link, useLocation } from 'react-router-dom'
 import { useAuth } from './context/AuthContext'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
@@ -17,6 +18,31 @@ import Search from './pages/Search'
 import Connect from './pages/Connect'
 import Reviews from './pages/Reviews'
 import Admin from './pages/Admin'
+
+const ROUTE_META = {
+  '/': ['Web Works — Classifieds for Web Development Work', 'The $5 classifieds for web dev freelancing. Free accounts, direct contact, no commissions.'],
+  '/search': ['Search listings — Web Works', 'Browse every active web development project and talent ad. Filter by keyword or skill.'],
+  '/connect': ['How connecting works — Web Works', 'Reveal contact info and work directly — no platform middleman, no commissions.'],
+  '/about': ['About — Web Works', 'Why one developer built a $5 classifieds board for web development work.'],
+  '/post': ['Post an ad — Web Works', 'Advertise your project or your skills. $5/month, cancel anytime.'],
+  '/terms': ['Terms of Use — Web Works', 'The rules of the road for Web Works classifieds.'],
+  '/privacy': ['Privacy Policy — Web Works', 'What we collect, why, and what we never do with your data.'],
+  '/cookies': ['Cookie Policy — Web Works', 'The short list of what Web Works stores in your browser.'],
+}
+
+function RouteMeta() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    const meta =
+      ROUTE_META[pathname] ??
+      (pathname.startsWith('/listing/') ? ['Listing — Web Works', 'A web development classified ad on Web Works.']
+      : pathname.startsWith('/profile/') ? ['Profile — Web Works', 'A freelancer or client profile on Web Works.']
+      : ROUTE_META['/'])
+    document.title = meta[0]
+    document.querySelector('meta[name="description"]')?.setAttribute('content', meta[1])
+  }, [pathname])
+  return null
+}
 
 function Protected({ children }) {
   const { user, profile, loading } = useAuth()
@@ -37,6 +63,7 @@ export function PageSpinner() {
 export default function App() {
   return (
     <div className="min-h-screen">
+      <RouteMeta />
       <Navbar />
       <main className="mx-auto max-w-6xl px-4 pb-20">
         <Routes>

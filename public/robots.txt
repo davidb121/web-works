@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /my-listings
+Disallow: /reviews
+Disallow: /admin
+Disallow: /onboarding
+Disallow: /checkout/
+
+Sitemap: https://www.web-wrx.net/sitemap.xml

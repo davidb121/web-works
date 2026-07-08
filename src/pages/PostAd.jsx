@@ -206,6 +206,16 @@ export default function PostAd() {
           >
             Preview ad
           </button>
+          {!validStep0() && (
+            <p className="text-center text-xs text-slate-500">
+              To preview, complete:{' '}
+              {[
+                form.title.trim().length < 8 && `title (${Math.max(0, 8 - form.title.trim().length)} more characters)`,
+                form.description.trim().length < 40 && `description (${Math.max(0, 40 - form.description.trim().length)} more characters)`,
+                form.contact_info.trim().length < 5 && 'contact info',
+              ].filter(Boolean).join(' \u00b7 ')}
+            </p>
+          )}
         </div>
       )}
 
