@@ -81,7 +81,7 @@ export function ReportButton({ targetType, targetId }) {
   const [state, setState] = useState(null) // null | 'busy' | 'sent' | error string
 
   if (!user) return null
-  if (state === 'sent') return <p className="text-xs text-slate-400">Report sent — thanks for keeping Web Works honest.</p>
+  if (state === 'sent') return <p className="text-xs text-slate-400">Report sent — thanks for keeping Web Wrx honest.</p>
 
   async function submit() {
     setState('busy')

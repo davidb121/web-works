@@ -1,4 +1,4 @@
-// Hand-drawn SVG illustrations for Web Works — indigo brand palette.
+// Hand-drawn SVG illustrations for Web Wrx — indigo brand palette.
 // All pure SVG: crisp at any size, zero network requests, no licensing.
 
 const brand = {

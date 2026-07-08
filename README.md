@@ -1,4 +1,4 @@
-# Web Works — Phase 1
+# Web Wrx — Phase 1
 
 Classifieds for web development work. React + Vite + Tailwind, Supabase, Stripe, Vercel.
 
@@ -27,7 +27,7 @@ npm run dev
 
 ### 3. Stripe
 
-1. Create a product **"Web Works Listing"** with a recurring price of **$5.00/month** → copy the price ID.
+1. Create a product **"Web Wrx Listing"** with a recurring price of **$5.00/month** → copy the price ID.
 2. Create a coupon: **$3.00 off, once** (makes the first month $2) → copy the coupon ID.
 3. Enable the [customer portal](https://dashboard.stripe.com/settings/billing/portal) (for cancel/card management).
 4. Set edge function secrets:

@@ -92,7 +92,7 @@ export default function ListingDetail() {
             <div>
               <div className="text-xs font-semibold uppercase tracking-wide text-slate-400">Contact</div>
               <p className="mt-1 break-words font-medium text-slate-900">{contact}</p>
-              <p className="mt-2 text-xs text-slate-500">Reach out directly — Web Works isn’t part of your conversation or payment.</p>
+              <p className="mt-2 text-xs text-slate-500">Reach out directly — Web Wrx isn’t part of your conversation or payment.</p>
             </div>
           ) : isOwner ? (
             <p className="text-sm text-slate-500">This is your ad.</p>

@@ -44,7 +44,7 @@ Deno.serve(async (req) => {
       const timer = setTimeout(() => controller.abort(), 10_000)
       const res = await fetch(review.work_url!, {
         signal: controller.signal,
-        headers: { 'User-Agent': 'WebWorksVerifier/1.0 (+https://www.web-wrx.net)' },
+        headers: { 'User-Agent': 'WebWrxVerifier/1.0 (+https://www.web-wrx.net)' },
       })
       clearTimeout(timer)
       urlLive = res.ok

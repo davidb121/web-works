@@ -10,7 +10,7 @@ export default function Cookies() {
 
       <div className="mt-6 space-y-4 text-slate-700">
         <p>
-          Web Works uses as little in the way of cookies and browser storage as we can get away
+          Web Wrx uses as little in the way of cookies and browser storage as we can get away
           with. We use <strong>no advertising cookies, no cross-site trackers, and no social
           media pixels</strong> — which is why you don't see a cookie consent banner here.
         </p>
@@ -44,7 +44,7 @@ export default function Cookies() {
         <h2 className="pt-4 text-lg font-bold text-slate-900">Managing cookies</h2>
         <p>
           You can clear local storage and cookies through your browser settings at any time — the
-          only effect on Web Works is that you'll be signed out. Blocking essential storage
+          only effect on Web Wrx is that you'll be signed out. Blocking essential storage
           entirely may prevent sign-in from working.
         </p>
 

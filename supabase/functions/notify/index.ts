@@ -13,17 +13,17 @@ const admin = createClient(
 )
 
 const SITE = 'https://www.web-wrx.net'
-const FROM = 'Web Works <noreply@web-wrx.net>'
+const FROM = 'Web Wrx <noreply@web-wrx.net>'
 
 function layout(inner: string) {
   return `<div style="font-family:Inter,Arial,sans-serif;max-width:520px;margin:0 auto;padding:24px;color:#0f172a">
   <div style="font-weight:800;font-size:18px;margin-bottom:16px">
     <span style="display:inline-block;background:#4f46e5;color:#fff;border-radius:8px;padding:2px 8px">W</span>
-    Web Works
+    Web Wrx
   </div>
   ${inner}
   <p style="color:#94a3b8;font-size:12px;margin-top:32px">
-    Web Works — classifieds for web dev work. You're getting this because of activity on your account.
+    Web Wrx — classifieds for web dev work. You're getting this because of activity on your account.
   </p>
 </div>`
 }

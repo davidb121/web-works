@@ -21,15 +21,15 @@ import Admin from './pages/Admin'
 import Faq from './pages/Faq'
 
 const ROUTE_META = {
-  '/': ['Web Works — Classifieds for Web Development Work', 'The $5 classifieds for web dev freelancing. Free accounts, direct contact, no commissions.'],
-  '/search': ['Search listings — Web Works', 'Browse every active web development project and talent ad. Filter by keyword or skill.'],
-  '/connect': ['How connecting works — Web Works', 'Reveal contact info and work directly — no platform middleman, no commissions.'],
-  '/about': ['About — Web Works', 'Why one developer built a $5 classifieds board for web development work.'],
-  '/post': ['Post an ad — Web Works', 'Advertise your project or your skills. $5/month, cancel anytime.'],
-  '/faq': ['Pricing & FAQ — Web Works', 'Every price, the refund policy, how review badges work, and who runs the site.'],
-  '/terms': ['Terms of Use — Web Works', 'The rules of the road for Web Works classifieds.'],
-  '/privacy': ['Privacy Policy — Web Works', 'What we collect, why, and what we never do with your data.'],
-  '/cookies': ['Cookie Policy — Web Works', 'The short list of what Web Works stores in your browser.'],
+  '/': ['Web Wrx — Classifieds for Web Development Work', 'The $5 classifieds for web dev freelancing. Free accounts, direct contact, no commissions.'],
+  '/search': ['Search listings — Web Wrx', 'Browse every active web development project and talent ad. Filter by keyword or skill.'],
+  '/connect': ['How connecting works — Web Wrx', 'Reveal contact info and work directly — no platform middleman, no commissions.'],
+  '/about': ['About — Web Wrx', 'Why one developer built a $5 classifieds board for web development work.'],
+  '/post': ['Post an ad — Web Wrx', 'Advertise your project or your skills. $5/month, cancel anytime.'],
+  '/faq': ['Pricing & FAQ — Web Wrx', 'Every price, the refund policy, how review badges work, and who runs the site.'],
+  '/terms': ['Terms of Use — Web Wrx', 'The rules of the road for Web Wrx classifieds.'],
+  '/privacy': ['Privacy Policy — Web Wrx', 'What we collect, why, and what we never do with your data.'],
+  '/cookies': ['Cookie Policy — Web Wrx', 'The short list of what Web Wrx stores in your browser.'],
 }
 
 function RouteMeta() {
@@ -37,8 +37,8 @@ function RouteMeta() {
   useEffect(() => {
     const meta =
       ROUTE_META[pathname] ??
-      (pathname.startsWith('/listing/') ? ['Listing — Web Works', 'A web development classified ad on Web Works.']
-      : pathname.startsWith('/profile/') ? ['Profile — Web Works', 'A freelancer or client profile on Web Works.']
+      (pathname.startsWith('/listing/') ? ['Listing — Web Wrx', 'A web development classified ad on Web Wrx.']
+      : pathname.startsWith('/profile/') ? ['Profile — Web Wrx', 'A freelancer or client profile on Web Wrx.']
       : ROUTE_META['/'])
     document.title = meta[0]
     document.querySelector('meta[name="description"]')?.setAttribute('content', meta[1])
@@ -90,7 +90,7 @@ export default function App() {
         </Routes>
       </main>
       <footer className="border-t border-slate-200 bg-white py-8 text-center text-sm text-slate-500">
-        <p>Web Works — cheap &amp; easy classifieds for web development work. No commissions, ever.</p>
+        <p>Web Wrx — cheap &amp; easy classifieds for web development work. No commissions, ever.</p>
         <nav className="mt-3 flex justify-center gap-5">
           <Link to="/about" className="hover:text-slate-700 hover:underline">About us</Link>
           <Link to="/faq" className="hover:text-slate-700 hover:underline">Pricing &amp; FAQ</Link>

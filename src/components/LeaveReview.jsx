@@ -72,7 +72,7 @@ export default function LeaveReview({ subjectId, subjectName, onSubmitted }) {
       {!open ? (
         <div className="flex items-center justify-between gap-3">
           <p className="text-sm text-slate-600">
-            You connected with {subjectName} through Web Works. How did it go?
+            You connected with {subjectName} through Web Wrx. How did it go?
           </p>
           <button
             onClick={() => setOpen(true)}

@@ -12,7 +12,7 @@ export default function Navbar() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 font-extrabold text-white">W</span>
-          <span className="text-lg font-bold tracking-tight">Web Works</span>
+          <span className="text-lg font-bold tracking-tight">Web Wrx</span>
         </Link>
 
         <nav className="flex items-center gap-2 sm:gap-3">

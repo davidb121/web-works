@@ -55,7 +55,7 @@ export default function Onboarding() {
 
   async function save(e) {
     e.preventDefault()
-    if (!role) { setError('Pick how you plan to use Web Works.'); return }
+    if (!role) { setError('Pick how you plan to use Web Wrx.'); return }
     setBusy(true); setError(null)
     try {
       let imageUrl = null

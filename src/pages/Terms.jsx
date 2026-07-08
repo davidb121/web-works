@@ -16,14 +16,14 @@ export default function Terms() {
       <p className="mt-2 text-sm text-slate-500">Effective {EFFECTIVE_DATE}</p>
 
       <p className="mt-6 text-slate-700">
-        Welcome to Web Works ("we," "us," the "Service"), a classified-advertising service at
+        Welcome to Web Wrx ("we," "us," the "Service"), a classified-advertising service at
         web-wrx.net for web development projects and talent. By creating an account or posting
         a listing, you agree to these Terms. If you don't agree, please don't use the Service.
       </p>
 
-      <Section n={1} title="What Web Works is (and isn't)">
+      <Section n={1} title="What Web Wrx is (and isn't)">
         <p>
-          Web Works is an advertising board. We publish listings and let users share contact
+          Web Wrx is an advertising board. We publish listings and let users share contact
           information with each other. We are <strong>not</strong> a party to any agreement
           between users, and we do not process payments between users, supervise work, verify
           the accuracy of listings, guarantee outcomes, or mediate disputes. Any engagement you

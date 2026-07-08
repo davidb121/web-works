@@ -18,7 +18,7 @@ export default function Privacy() {
       <p className="mt-2 text-sm text-slate-500">Effective {EFFECTIVE_DATE}</p>
 
       <p className="mt-6 text-slate-700">
-        This policy explains what Web Works (web-wrx.net) collects, why, and what we do with it.
+        This policy explains what Web Wrx (web-wrx.net) collects, why, and what we do with it.
         The short version: we collect what's needed to run a classifieds site and nothing more.
         We don't sell your data, we don't run advertising, and we don't track you around the web.
       </p>
@@ -96,7 +96,7 @@ export default function Privacy() {
 
       <Section n={7} title="Children">
         <p>
-          Web Works is for adults. We don't knowingly collect data from anyone under 18; if we
+          Web Wrx is for adults. We don't knowingly collect data from anyone under 18; if we
           learn we have, we'll delete it.
         </p>
       </Section>

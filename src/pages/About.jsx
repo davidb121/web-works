@@ -4,11 +4,11 @@ import { HeroIllustration } from '../components/illustrations'
 export default function About() {
   return (
     <div className="mx-auto max-w-3xl py-12">
-      <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">About Web Works</h1>
+      <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">About Web Wrx</h1>
 
       <div className="prose-slate mt-6 space-y-4 text-slate-700">
         <p>
-          Web Works is a classified-ad board for one thing only: websites and web apps.
+          Web Wrx is a classified-ad board for one thing only: websites and web apps.
           Freelancers post what they can build; clients post what they need built. You find
           each other, reveal contact info, and work together directly — off the platform,
           on your own terms.
@@ -19,7 +19,7 @@ export default function About() {
           <a href="https://www.linkedin.com/in/davidbeerman/" target="_blank" rel="noopener noreferrer" className="text-brand-600 underline">
             Dave Beerman
           </a>
-          , the developer who built and runs Web Works. I got tired of watching freelance
+          , the developer who built and runs Web Wrx. I got tired of watching freelance
           platforms take 10–20% of every invoice while inserting themselves into every
           conversation, payment, and dispute. The big marketplaces have their place, but a
           lot of us just want what the classifieds section used to be: a cheap ad, a phone

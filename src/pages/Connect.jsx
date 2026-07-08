@@ -8,7 +8,7 @@ export default function Connect() {
       <ConnectSpot className="h-24 w-24" />
       <h1 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">How connecting works</h1>
       <p className="mt-3 text-lg text-slate-600">
-        Web Works doesn't sit between you and the person you want to work with. Here's
+        Web Wrx doesn't sit between you and the person you want to work with. Here's
         exactly what happens when a client and a freelancer find each other.
       </p>
 
@@ -33,7 +33,7 @@ export default function Connect() {
             <p className="mt-1 text-slate-700">
               From there you communicate directly — email, phone, video call, your project
               tools. Negotiate scope, price, and timeline yourselves, use your own contract,
-              and pay however you both prefer. Web Works never touches the money, which is
+              and pay however you both prefer. Web Wrx never touches the money, which is
               why there are no commissions on anything you earn or spend.
             </p>
           </div>
