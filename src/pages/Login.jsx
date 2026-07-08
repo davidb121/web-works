@@ -1,17 +1,19 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
 export default function Login() {
   const { signInWithGoogle, signInWithEmail, signUpWithEmail, user } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
+  const next = location.state?.next ?? '/'
   const [mode, setMode] = useState('signin')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [msg, setMsg] = useState(null)
   const [busy, setBusy] = useState(false)
 
-  if (user) { navigate('/', { replace: true }); return null }
+  if (user) { navigate(next, { replace: true }); return null }
 
   async function handleEmail(e) {
     e.preventDefault()
@@ -21,7 +23,7 @@ export default function Login() {
     setBusy(false)
     if (error) setMsg({ type: 'error', text: error.message })
     else if (mode === 'signup') setMsg({ type: 'ok', text: 'Check your email to confirm your account.' })
-    else navigate('/')
+    else navigate(next)
   }
 
   return (

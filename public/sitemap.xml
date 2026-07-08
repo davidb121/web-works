@@ -3,6 +3,7 @@
   <url><loc>https://www.web-wrx.net/</loc><changefreq>hourly</changefreq><priority>1.0</priority></url>
   <url><loc>https://www.web-wrx.net/search</loc><changefreq>hourly</changefreq><priority>0.9</priority></url>
   <url><loc>https://www.web-wrx.net/connect</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.web-wrx.net/faq</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.web-wrx.net/about</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://www.web-wrx.net/terms</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
   <url><loc>https://www.web-wrx.net/privacy</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>

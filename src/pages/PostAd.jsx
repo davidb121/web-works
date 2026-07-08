@@ -1,26 +1,45 @@
 import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { supabase, SKILL_OPTIONS } from '../lib/supabase'
-import { Briefcase, Wrench, Check } from 'lucide-react'
+import { Briefcase, Wrench, Check, UserCircle } from 'lucide-react'
 
 const STEPS = ['Describe', 'Preview', 'Pay']
 
+const EMPTY_FORM = {
+  kind: 'project',
+  title: '',
+  description: '',
+  engagement: 'one_time',
+  budget_min: '',
+  budget_max: '',
+  skills: [],
+  contact_info: '',
+}
+
+// Drafts survive the sign-in redirect (and accidental tab closes).
+const DRAFT_KEY = 'ww_post_draft'
+
+function loadDraft() {
+  try {
+    const d = JSON.parse(localStorage.getItem(DRAFT_KEY))
+    if (d && typeof d === 'object') return { ...EMPTY_FORM, ...d }
+  } catch { /* corrupted draft — start fresh */ }
+  return EMPTY_FORM
+}
+
 export default function PostAd() {
   const { user, session, profile } = useAuth()
+  const navigate = useNavigate()
   const [step, setStep] = useState(0)
   const [promoLeft, setPromoLeft] = useState(null)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState(null)
-  const [form, setForm] = useState({
-    kind: 'project',
-    title: '',
-    description: '',
-    engagement: 'one_time',
-    budget_min: '',
-    budget_max: '',
-    skills: [],
-    contact_info: '',
-  })
+  const [form, setForm] = useState(loadDraft)
+
+  useEffect(() => {
+    try { localStorage.setItem(DRAFT_KEY, JSON.stringify(form)) } catch { /* storage full/blocked */ }
+  }, [form])
 
   const set = (k, v) => setForm((f) => ({ ...f, [k]: v }))
   const isProject = form.kind === 'project'
@@ -86,6 +105,7 @@ export default function PostAd() {
       })
       const json = await res.json()
       if (!res.ok) throw new Error(json.error || 'Checkout failed')
+      try { localStorage.removeItem(DRAFT_KEY) } catch { /* ignore */ }
       window.location.href = json.url
     } catch (err) {
       setError(err.message)
@@ -260,12 +280,38 @@ export default function PostAd() {
             Renews at $5/month until you cancel. Cancel anytime from My Listings — your ad stays up through the period you paid for.
           </p>
           {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
-          <button
-            onClick={checkout} disabled={busy}
-            className="mt-5 w-full rounded-xl bg-brand-600 py-3 font-semibold text-white hover:bg-brand-700 disabled:opacity-50"
-          >
-            {busy ? 'Redirecting to Stripe…' : `Pay ${firstMonthPrice} and publish`}
-          </button>
+          {!user ? (
+            <>
+              <button
+                onClick={() => navigate('/login', { state: { next: '/post' } })}
+                className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 py-3 font-semibold text-white hover:bg-brand-700"
+              >
+                <UserCircle size={18} /> Create a free account to publish
+              </button>
+              <p className="mt-2 text-center text-xs text-slate-400">
+                Takes a minute — your ad draft is saved and will be right here when you're back.
+              </p>
+            </>
+          ) : !profile ? (
+            <>
+              <button
+                onClick={() => navigate('/onboarding', { state: { next: '/post' } })}
+                className="mt-5 w-full rounded-xl bg-brand-600 py-3 font-semibold text-white hover:bg-brand-700"
+              >
+                Finish your profile to publish
+              </button>
+              <p className="mt-2 text-center text-xs text-slate-400">
+                30 seconds — then you'll land back here with your draft intact.
+              </p>
+            </>
+          ) : (
+            <button
+              onClick={checkout} disabled={busy}
+              className="mt-5 w-full rounded-xl bg-brand-600 py-3 font-semibold text-white hover:bg-brand-700 disabled:opacity-50"
+            >
+              {busy ? 'Redirecting to Stripe…' : `Pay ${firstMonthPrice} and publish`}
+            </button>
+          )}
           <button onClick={() => setStep(1)} className="mt-3 w-full text-center text-sm text-slate-500 hover:underline">Back</button>
         </div>
       )}

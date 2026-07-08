@@ -18,6 +18,7 @@ import Search from './pages/Search'
 import Connect from './pages/Connect'
 import Reviews from './pages/Reviews'
 import Admin from './pages/Admin'
+import Faq from './pages/Faq'
 
 const ROUTE_META = {
   '/': ['Web Works — Classifieds for Web Development Work', 'The $5 classifieds for web dev freelancing. Free accounts, direct contact, no commissions.'],
@@ -25,6 +26,7 @@ const ROUTE_META = {
   '/connect': ['How connecting works — Web Works', 'Reveal contact info and work directly — no platform middleman, no commissions.'],
   '/about': ['About — Web Works', 'Why one developer built a $5 classifieds board for web development work.'],
   '/post': ['Post an ad — Web Works', 'Advertise your project or your skills. $5/month, cancel anytime.'],
+  '/faq': ['Pricing & FAQ — Web Works', 'Every price, the refund policy, how review badges work, and who runs the site.'],
   '/terms': ['Terms of Use — Web Works', 'The rules of the road for Web Works classifieds.'],
   '/privacy': ['Privacy Policy — Web Works', 'What we collect, why, and what we never do with your data.'],
   '/cookies': ['Cookie Policy — Web Works', 'The short list of what Web Works stores in your browser.'],
@@ -70,7 +72,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/onboarding" element={<Onboarding />} />
-          <Route path="/post" element={<Protected><PostAd /></Protected>} />
+          <Route path="/post" element={<PostAd />} />
           <Route path="/listing/:id" element={<ListingDetail />} />
           <Route path="/my-listings" element={<Protected><MyListings /></Protected>} />
           <Route path="/profile/:id" element={<Profile />} />
@@ -81,6 +83,7 @@ export default function App() {
           <Route path="/cookies" element={<Cookies />} />
           <Route path="/search" element={<Search />} />
           <Route path="/connect" element={<Connect />} />
+          <Route path="/faq" element={<Faq />} />
           <Route path="/reviews" element={<Protected><Reviews /></Protected>} />
           <Route path="/admin" element={<Protected><Admin /></Protected>} />
           <Route path="*" element={<Navigate to="/" replace />} />
@@ -90,6 +93,7 @@ export default function App() {
         <p>Web Works — cheap &amp; easy classifieds for web development work. No commissions, ever.</p>
         <nav className="mt-3 flex justify-center gap-5">
           <Link to="/about" className="hover:text-slate-700 hover:underline">About us</Link>
+          <Link to="/faq" className="hover:text-slate-700 hover:underline">Pricing &amp; FAQ</Link>
           <Link to="/terms" className="hover:text-slate-700 hover:underline">Terms of use</Link>
           <Link to="/privacy" className="hover:text-slate-700 hover:underline">Privacy</Link>
           <Link to="/cookies" className="hover:text-slate-700 hover:underline">Cookies</Link>

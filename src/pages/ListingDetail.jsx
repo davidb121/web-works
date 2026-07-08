@@ -7,6 +7,7 @@ import Avatar from '../components/Avatar'
 import { PageSpinner } from '../App'
 import { Mail, Clock, Repeat, ExternalLink } from 'lucide-react'
 import { ReportButton } from '../components/reviews'
+import { linkify, timeAgo } from '../lib/text'
 
 export default function ListingDetail() {
   const { id } = useParams()
@@ -60,9 +61,12 @@ export default function ListingDetail() {
             </span>
           )}
           {budget && <span className="rounded-md bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-700">{budget}</span>}
+          <span className="text-xs text-slate-400" title={new Date(listing.created_at).toLocaleString()}>
+            Posted {timeAgo(listing.created_at)}
+          </span>
         </div>
         <h1 className="mt-3 text-2xl font-bold sm:text-3xl">{listing.title}</h1>
-        <p className="mt-4 whitespace-pre-wrap leading-relaxed text-slate-700">{listing.description}</p>
+        <p className="mt-4 whitespace-pre-wrap leading-relaxed text-slate-700">{linkify(listing.description)}</p>
         {(listing.skills || []).length > 0 && (
           <div className="mt-6 flex flex-wrap gap-1.5">
             {listing.skills.map((s) => (

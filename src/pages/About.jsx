@@ -15,11 +15,15 @@ export default function About() {
         </p>
         <p className="font-semibold text-slate-900">Why it exists</p>
         <p>
-          Web Works was built by one developer who got tired of watching freelance platforms
-          take 10–20% of every invoice while inserting themselves into every conversation,
-          payment, and dispute. The big marketplaces have their place, but a lot of us just
-          want what the classifieds section used to be: a cheap ad, a phone number, and a
-          handshake.
+          Hi — I'm{' '}
+          <a href="https://www.linkedin.com/in/davidbeerman/" target="_blank" rel="noopener noreferrer" className="text-brand-600 underline">
+            Dave Beerman
+          </a>
+          , the developer who built and runs Web Works. I got tired of watching freelance
+          platforms take 10–20% of every invoice while inserting themselves into every
+          conversation, payment, and dispute. The big marketplaces have their place, but a
+          lot of us just want what the classifieds section used to be: a cheap ad, a phone
+          number, and a handshake. So I built it — solo, and I answer the support email myself.
         </p>
         <p className="font-semibold text-slate-900">The deal</p>
         <p>

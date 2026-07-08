@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { supabase } from '../lib/supabase'
 import { uploadImage } from '../lib/uploadImage'
@@ -18,6 +18,7 @@ const MAX_SKILLS = 20
 export default function Onboarding() {
   const { user, profile, refreshProfile, loading } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
   const [role, setRole] = useState(profile?.type ?? null)
   const [name, setName] = useState(profile?.display_name ?? user?.user_metadata?.full_name ?? '')
   const [bio, setBio] = useState(profile?.bio ?? '')
@@ -78,7 +79,7 @@ export default function Onboarding() {
       const { error } = await supabase.from('profiles').upsert(row, { onConflict: 'user_id' })
       if (error) throw error
       await refreshProfile()
-      navigate('/')
+      navigate(location.state?.next ?? '/')
     } catch (err) {
       setError(err.message)
     } finally {

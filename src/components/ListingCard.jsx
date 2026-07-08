@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Briefcase, Wrench, Clock, Repeat } from 'lucide-react'
+import { timeAgo } from '../lib/text'
 
 export function formatBudget(l) {
   if (!l.budget_min && !l.budget_max) return null
@@ -39,6 +40,7 @@ export default function ListingCard({ listing }) {
         {(listing.skills || []).slice(0, 4).map((s) => (
           <span key={s} className="rounded-md bg-slate-50 px-2 py-0.5 text-xs text-slate-500 ring-1 ring-slate-200">{s}</span>
         ))}
+        <span className="ml-auto text-xs text-slate-400">{timeAgo(listing.created_at)}</span>
       </div>
     </Link>
   )
